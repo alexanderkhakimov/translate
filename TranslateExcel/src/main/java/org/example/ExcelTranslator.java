@@ -20,6 +20,7 @@ public class ExcelTranslator {
 
         List<File> listFile = readFilesFromDir(new File(src), ".xlsx");
         Map<String, String> exDic = readDictionary(excelDirectionary);
+        exDic.put("ту","TU");
         exDic.put("тУ","TU");
         translate(listFile, exDic, dest);
 
@@ -67,7 +68,7 @@ public class ExcelTranslator {
                     for (Cell cell : row) {
                         if (cell.getCellType() == CellType.STRING) {
                             String cellValue = cell.getStringCellValue();
-                            String translatedValue = translateText(cellValue, excelDirectionary);
+                            String translatedValue = translateText(cellValue.toLowerCase(), excelDirectionary);
                             if (translatedValue.length() > 0) {
                                 translatedValue = translatedValue.substring(0, 1).toUpperCase() + translatedValue.substring(1);
                             }
@@ -88,7 +89,7 @@ public class ExcelTranslator {
     }
 
     private static String translateText(String text, Map<String, String> dictionary) {
-        String temp = text.toLowerCase();
+        String temp = text;
 //        if (temp.length() > 0) {
 //            temp = temp.substring(0, 1).toLowerCase() + temp.substring(1);
 //        }
