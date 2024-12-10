@@ -39,10 +39,11 @@ public class ExcelTranslator {
                 Cell valueCell = row.getCell(1);
                 if (keyCell != null && valueCell != null) {
                     String key =keyCell.getStringCellValue();
-                    if(!(key.equals("ТУ") || key.equals("ГОСТ")|| key.equals("ОСТ")||
-                            key.equals("Ц-ОСТ")|| key.equals("Ц.фос-ОСТ")|| key.equals("Ц.фос.окс-ОСТ")) ){
-                        key = key.toLowerCase();
-                    }
+//                    if(!(key.equals("ТУ") || key.equals("ГОСТ")|| key.equals("ОСТ")||
+//                            key.equals("Ц-ОСТ")|| key.equals("Ц.фос-ОСТ")|| key.equals("Ц.фос.окс-ОСТ")) ){
+//                        key = key.toLowerCase();
+//                    }
+                    key = key.toLowerCase();
                     String value = valueCell.getStringCellValue();
                     map.put(key, value);
                 }
@@ -87,10 +88,10 @@ public class ExcelTranslator {
     }
 
     private static String translateText(String text, Map<String, String> dictionary) {
-        String temp = text;
-        if (temp.length() > 0) {
-            temp = temp.substring(0, 1).toLowerCase() + temp.substring(1);
-        }
+        String temp = text.toLowerCase();
+//        if (temp.length() > 0) {
+//            temp = temp.substring(0, 1).toLowerCase() + temp.substring(1);
+//        }
         for (Map.Entry<String, String> entry : dictionary.entrySet()) {
             String key = entry.getKey();
             Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
