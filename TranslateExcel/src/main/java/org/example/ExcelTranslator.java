@@ -10,16 +10,13 @@ import java.util.regex.Pattern;
 
 public class ExcelTranslator {
     public static void main(String[] args) throws FileNotFoundException {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Введите путь к папке с файлами в формате Excel: ");
-//        String src = scanner.nextLine();
-//        System.out.print("Введите путь к папке, где будут сохранены файлы: ");
-//        String dest = scanner.nextLine();
-//        System.out.print("Введите путь к словарю для перевода: ");
-//        String excelDirectionary = scanner.nextLine();
-        String excelDirectionary="C:\\Users\\SurfaceBook\\Desktop\\translate\\dict.xlsx";
-                String dest ="C:\\Users\\SurfaceBook\\Desktop\\translate\\dest";
-                String src ="C:\\Users\\SurfaceBook\\Desktop\\translate\\src";
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите путь к папке с файлами в формате Excel: ");
+        String src = scanner.nextLine();
+        System.out.print("Введите путь к папке, где будут сохранены файлы: ");
+        String dest = scanner.nextLine();
+        System.out.print("Введите путь к словарю для перевода: ");
+        String excelDirectionary = scanner.nextLine();
 
         List<File> listFile = readFilesFromDir(new File(src), ".xlsx");
         Map<String, String> exDic = readDictionary(excelDirectionary);
