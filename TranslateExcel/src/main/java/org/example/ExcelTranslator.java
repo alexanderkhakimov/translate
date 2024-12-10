@@ -64,9 +64,18 @@ public class ExcelTranslator {
 
                 Sheet sheet = workbook.getSheetAt(0); // Получаем первый лист
 
-                for (Row row : sheet) {
-                    for (Cell cell : row) {
-                        if (cell.getCellType() == CellType.STRING) {
+                // Начинаем обработку с третьей строки (индекс 2)
+                for (int rowIndex = 2; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+                    Row row = sheet.getRow(rowIndex);
+                    if (row == null) {
+                        continue; // Пропускаем пустые строки
+                    }
+
+                    // Обрабатываем только столбцы A, D и E
+                    for (char columnChar : new char[]{'A', 'D', 'E'}) {
+                        int columnIndex = columnChar - 'A'; // Преобразуем букву столбца в индекс
+                        Cell cell = row.getCell(columnIndex);
+                        if (cell != null && cell.getCellType() == CellType.STRING) {
                             String cellValue = cell.getStringCellValue();
                             String translatedValue = translateText(cellValue.toLowerCase(), excelDirectionary);
                             if (translatedValue.length() > 0) {
