@@ -52,7 +52,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.example.MainClass</mainClass> <!-- Замените на ваш основной класс -->
+                            <mainClass>org.example.ExcelTranslator</mainClass> <!-- Замените на ваш основной класс -->
                         </manifest>
                     </archive>
                 </configuration>
