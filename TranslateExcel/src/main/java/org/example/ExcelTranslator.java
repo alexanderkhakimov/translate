@@ -20,8 +20,6 @@ public class ExcelTranslator {
 
         List<File> listFile = readFilesFromDir(new File(src), ".xlsx");
         Map<String, String> exDic = readDictionary(excelDirectionary);
-        exDic.put("ту","TU");
-        exDic.put("тУ","TU");
         translate(listFile, exDic, dest);
 
 
@@ -40,11 +38,6 @@ public class ExcelTranslator {
                 Cell valueCell = row.getCell(1);
                 if (keyCell != null && valueCell != null) {
                     String key =keyCell.getStringCellValue();
-//                    if(!(key.equals("ТУ") || key.equals("ГОСТ")|| key.equals("ОСТ")||
-//                            key.equals("Ц-ОСТ")|| key.equals("Ц.фос-ОСТ")|| key.equals("Ц.фос.окс-ОСТ")) ){
-//                        key = key.toLowerCase();
-//                    }
-                    key = key.toLowerCase();
                     String value = valueCell.getStringCellValue();
                     map.put(key, value);
                 }
@@ -77,10 +70,7 @@ public class ExcelTranslator {
                         Cell cell = row.getCell(columnIndex);
                         if (cell != null && cell.getCellType() == CellType.STRING) {
                             String cellValue = cell.getStringCellValue();
-                            String translatedValue = translateText(cellValue.toLowerCase(), excelDirectionary);
-                            if (translatedValue.length() > 0) {
-                                translatedValue = translatedValue.substring(0, 1).toUpperCase() + translatedValue.substring(1);
-                            }
+                            String translatedValue = translateText(cellValue, excelDirectionary);
                             cell.setCellValue(translatedValue);
                         }
                     }
@@ -99,9 +89,6 @@ public class ExcelTranslator {
 
     private static String translateText(String text, Map<String, String> dictionary) {
         String temp = text;
-//        if (temp.length() > 0) {
-//            temp = temp.substring(0, 1).toLowerCase() + temp.substring(1);
-//        }
         for (Map.Entry<String, String> entry : dictionary.entrySet()) {
             String key = entry.getKey();
             Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
