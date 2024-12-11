@@ -40,6 +40,7 @@ public class ExcelTranslator {
                     String key =keyCell.getStringCellValue();
                     String value = valueCell.getStringCellValue();
                     map.put(key, value);
+                    map.put(key.toLowerCase(), value);
                 }
             }
 
