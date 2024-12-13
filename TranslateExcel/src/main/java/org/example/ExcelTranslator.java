@@ -88,19 +88,32 @@ public class ExcelTranslator {
         }
     }
 
-    private static String translateText(String text, Map<String, String> dictionary) {
-        String temp = text;
-        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
-            String key = entry.getKey();
-            Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(temp);
-            while (matcher.find()) {
-                String translateWord = temp.replaceAll(key, entry.getValue());
-                return translateText(translateWord, dictionary);
-            }
+//    private static String translateText(String text, Map<String, String> dictionary) {
+//        String temp = text;
+//        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+//            String key = entry.getKey();
+//            Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
+//            Matcher matcher = pattern.matcher(temp);
+//            while (matcher.find()) {
+//                String translateWord = temp.replaceAll(key, entry.getValue());
+//                return translateText(translateWord, dictionary);
+//            }
+//        }
+//        return temp;
+//    }
+private static String translateText(String text, Map<String, String> dictionary) {
+    StringBuilder result = new StringBuilder(text);
+    for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+        String key = entry.getKey();
+        String value = entry.getValue();
+        int index = result.indexOf(key);
+        while (index != -1) {
+            result.replace(index, index + key.length(), value);
+            index = result.indexOf(key, index + value.length());
         }
-        return temp;
     }
+    return result.toString();
+}
 
 
     private static List<File> readFilesFromDir(File excelDirectory, String ext) {
