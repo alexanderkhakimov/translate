@@ -37,10 +37,15 @@ public class ExcelTranslator {
                 Cell keyCell = row.getCell(0);
                 Cell valueCell = row.getCell(1);
                 if (keyCell != null && valueCell != null) {
-                    String key =keyCell.getStringCellValue();
+                    String key = keyCell.getStringCellValue();
                     String value = valueCell.getStringCellValue();
                     map.put(key, value);
-                    map.put(key.toLowerCase(), value);
+                    if (key.equals("ТУ") || key.equals("ОСТ")|| key.equals("ГОСТ")) {
+
+                    } else {
+                        map.put(key.toLowerCase(), value);
+                    }
+
                 }
             }
 
@@ -88,7 +93,7 @@ public class ExcelTranslator {
         }
     }
 
-//    private static String translateText(String text, Map<String, String> dictionary) {
+    //    private static String translateText(String text, Map<String, String> dictionary) {
 //        String temp = text;
 //        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
 //            String key = entry.getKey();
@@ -101,19 +106,19 @@ public class ExcelTranslator {
 //        }
 //        return temp;
 //    }
-private static String translateText(String text, Map<String, String> dictionary) {
-    StringBuilder result = new StringBuilder(text);
-    for (Map.Entry<String, String> entry : dictionary.entrySet()) {
-        String key = entry.getKey();
-        String value = entry.getValue();
-        int index = result.indexOf(key);
-        while (index != -1) {
-            result.replace(index, index + key.length(), value);
-            index = result.indexOf(key, index + value.length());
+    private static String translateText(String text, Map<String, String> dictionary) {
+        StringBuilder result = new StringBuilder(text);
+        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            int index = result.indexOf(key);
+            while (index != -1) {
+                result.replace(index, index + key.length(), value);
+                index = result.indexOf(key, index + value.length());
+            }
         }
+        return result.toString();
     }
-    return result.toString();
-}
 
 
     private static List<File> readFilesFromDir(File excelDirectory, String ext) {
